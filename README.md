@@ -1,0 +1,2 @@
+# configuration_management_automation_with_ansible
+Configuration Management Automation of Amazon EC2 instances with Ansible
