@@ -18,6 +18,7 @@
     owner: root
     group: root
     mode: '0644'
+  notify: Restart apache
   loop:
    - ansible.png
    - docker.png
@@ -25,9 +26,11 @@
    - terraform.png
     
 - name: Template a file to /etc/file.conf
-  ansible.builtin.template:
+  template:
     src: index.j2
     dest: /var/www/html/index.html
     owner: root
     group: root
     mode: '0644'
+  notify:
+    - Restart apache
