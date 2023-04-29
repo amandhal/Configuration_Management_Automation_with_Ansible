@@ -1,0 +1,36 @@
+- name: Install the latest version of Apache
+  package:
+    name:
+      - "{{ apache_package_name }}"
+    state: latest
+    
+- name: Start and Enable service httpd
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  when: ansible_distribution == "RedHat"
+  
+- name: Copy images to webservers
+  copy:
+    src: "{{ item }}"
+    dest: /var/www/html/
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart apache
+  loop:
+   - ansible.png
+   - docker.png
+   - kubernetes.svg
+   - terraform.png
+    
+- name: Created/modified index.html file form a template
+  template:
+    src: index.j2
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Restart apache

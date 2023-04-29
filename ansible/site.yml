@@ -1,0 +1,6 @@
+---
+- name: install_static_website
+  hosts: redhat,ubuntu
+  become: true
+  roles:
+    - install_static_website
